@@ -5,9 +5,11 @@ import json
 import os
 app = Flask(__name__)
 app.json.ensure_ascii = False
+app = Flask(__name__)
+app.json.ensure_ascii = False
 
 print("🔥 APP INITIALIZED")
-
+print("🔥 ROUTES:", app.url_map)
 # 👇 حط دول هنا مباشرة
 print("🔥 STARTING APP IMPORT")
 print("🔥 ROUTES:", app.url_map)
