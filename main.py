@@ -7,6 +7,10 @@ import os
 app = Flask(__name__)
 app.json.ensure_ascii = False
 
+# 👇 حط دول هنا مباشرة
+print("🔥 STARTING APP IMPORT")
+print("🔥 ROUTES:", app.url_map)
+
 # ============================================
 # تحميل الموديل
 # ============================================
