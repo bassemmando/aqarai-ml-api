@@ -6,9 +6,7 @@ import os
 app = Flask(__name__)
 app.json.ensure_ascii = False
 
-@app.before_first_request
-def init():
-    print("🔥 APP INITIALIZED")
+print("🔥 APP INITIALIZED")
 
 # 👇 حط دول هنا مباشرة
 print("🔥 STARTING APP IMPORT")
