@@ -111,7 +111,6 @@ def get_similar_apartments(apartment_id=None, city=None, area=None,
 # Routes
 # ============================================
 
-# تم إضافة مسار الصفحة الرئيسية لمنع ظهور خطأ 404 عند فتح الرابط المباشر
 @app.route('/', methods=['GET'])
 def index():
     return jsonify({
@@ -157,15 +156,14 @@ def predict_price():
         city_enc      = le_city.transform([city])[0]
         finishing_enc = le_finishing.transform([finishing_status])[0]
 
+        # تم تعديل الـ DataFrame هنا لحذف الأعمدة الزائدة التي تسبب الخطأ
         input_data = pd.DataFrame([{
             'floor_number':        floor_number,
             'area_sqm':            area_sqm,
             'number_of_rooms':     number_of_rooms,
             'number_of_bathrooms': number_of_baths,
             'city_enc':            city_enc,
-            'finishing_enc':       finishing_enc,
-            'rooms_bath_total':    number_of_rooms + number_of_baths,
-            'area_per_room':       area_sqm / number_of_rooms
+            'finishing_enc':       finishing_enc
         }])
 
         predicted      = int(model.predict(input_data)[0])
