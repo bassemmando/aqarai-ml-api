@@ -3,19 +3,14 @@ import pandas as pd
 import joblib
 import json
 import os
-app = Flask(__name__)
-app.json.ensure_ascii = False
+
 app = Flask(__name__)
 app.json.ensure_ascii = False
 
 print("🔥 APP INITIALIZED")
-print("🔥 ROUTES:", app.url_map)
-# 👇 حط دول هنا مباشرة
-print("🔥 STARTING APP IMPORT")
-print("🔥 ROUTES:", app.url_map)
 
 # ============================================
-# تحميل الموديل
+# تحميل الموديل والملفات التابعة له
 # ============================================
 model        = joblib.load('model/price_model.pkl')
 le_city      = joblib.load('model/le_city.pkl')
@@ -115,6 +110,21 @@ def get_similar_apartments(apartment_id=None, city=None, area=None,
 # ============================================
 # Routes
 # ============================================
+
+# تم إضافة مسار الصفحة الرئيسية لمنع ظهور خطأ 404 عند فتح الرابط المباشر
+@app.route('/', methods=['GET'])
+def index():
+    return jsonify({
+        "status": "success",
+        "message": "Welcome to AqarAI API Server!",
+        "endpoints": {
+            "health_check": "/health [GET]",
+            "options": "/api/options [GET]",
+            "predict_price": "/api/predict-price [POST]",
+            "similar_by_features": "/api/similar [POST]",
+            "similar_by_id": "/api/similar/<apartment_id> [GET]"
+        }
+    }), 200
 
 @app.route('/health', methods=['GET'])
 def health():
